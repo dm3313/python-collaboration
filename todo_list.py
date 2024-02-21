@@ -8,6 +8,15 @@ Created on Tue Feb 20 17:53:37 2024
 
 to_do_list = set()
 
+def completed(input_item, to_do_list):
+    in_list = list_to_check(input_item, to_do_list)
+    if in_list:
+        to_do_list.remove(input_item)
+        to_do_list.add(f"{input_item} --> Completed")
+    else:
+        print("This item is not in your to do list!")
+        
+
 def list_to_check(input_item, to_do_list):
     in_list = False
     for item in to_do_list:
@@ -31,7 +40,7 @@ def view(to_do_list):
     else:
         print("Here is your current to do list:")
         for item in to_do_list:
-            print(item)
+            print(item.capitalize())
 
 def add(item, to_do_list):
     in_list = list_to_check(item, to_do_list)
@@ -49,13 +58,18 @@ def main():
     print(instructions)
     print("")
     while True:
-        choice = input("Type your preferred action (add, delete, view, done): ")
+        choice = input("Type your preferred action (add, delete, view, done): ").casefold()
         if choice != "view":
-            requested_item = input("Please type out a to do list item: ")
-            if choice == "add":
-                add(requested_item, to_do_list)
-            elif choice == "delete":
-                delete(requested_item, to_do_list)
+            if choice == "add" or choice == "delete" or choice == "done":
+                requested_item = input("Please type out a to do list item: ")
+                if choice == "add":
+                    add(requested_item, to_do_list)
+                elif choice == "delete":
+                    delete(requested_item, to_do_list)
+                elif choice == "done":
+                    completed(requested_item, to_do_list)
+            else:
+                print("Not a valid choice!")
         else:
             view(to_do_list)
         print("")
