@@ -8,6 +8,23 @@ Created on Tue Feb 20 17:53:37 2024
 
 to_do_list = set()
 
+def list_to_check(input_item, to_do_list):
+    in_list = False
+    for item in to_do_list:
+        if input_item.casefold() == item.casefold():
+            in_list = True
+            break
+        else:
+            in_list = False
+    return(in_list)
+
+def delete(item, to_do_list):
+    in_list = list_to_check(item, to_do_list)
+    if in_list:
+        to_do_list.remove(item)
+    else:
+        print("The specified item is not in your to do list.")
+
 def view(to_do_list):
     if len(to_do_list) == 0:
         print("The to do list is currently empty. Add a value to view!")
@@ -17,7 +34,8 @@ def view(to_do_list):
             print(item)
 
 def add(item, to_do_list):
-    if item in to_do_list:
+    in_list = list_to_check(item, to_do_list)
+    if in_list:
         print("This item is already in the to do list!")
     else: 
         to_do_list.add(item)
@@ -29,12 +47,16 @@ def main():
         Type "view" to view all items in the dictionary
         Type "done" to mark an item as complete"""
     print(instructions)
+    print("")
     while True:
-        choice = input("Type your preferred action (add, delete, view, done): ").casefold()
+        choice = input("Type your preferred action (add, delete, view, done): ")
         if choice != "view":
             requested_item = input("Please type out a to do list item: ")
             if choice == "add":
                 add(requested_item, to_do_list)
+            elif choice == "delete":
+                delete(requested_item, to_do_list)
         else:
             view(to_do_list)
+        print("")
 main()
