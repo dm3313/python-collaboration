@@ -8,9 +8,17 @@ Created on Tue Feb 20 17:53:37 2024
 
 to_do_list = set()
 
+def view(to_do_list):
+    if len(to_do_list) == 0:
+        print("The to do list is currently empty. Add a value to view!")
+    else:
+        print("Here is your current to do list:")
+        for item in to_do_list:
+            print(item)
+
 def add(item, to_do_list):
     if item in to_do_list:
-        print("This item is already in the dictionary")
+        print("This item is already in the to do list!")
     else: 
         to_do_list.add(item)
 
@@ -22,8 +30,11 @@ def main():
         Type "done" to mark an item as complete"""
     print(instructions)
     while True:
-        requested_item = input("Please type out a to do list item: ")
         choice = input("Type your preferred action (add, delete, view, done): ").casefold()
-        if choice == "add":
-            add(requested_item, to_do_list)
+        if choice != "view":
+            requested_item = input("Please type out a to do list item: ")
+            if choice == "add":
+                add(requested_item, to_do_list)
+        else:
+            view(to_do_list)
 main()
