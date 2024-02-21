@@ -8,6 +8,9 @@ Created on Tue Feb 20 17:53:37 2024
 # Creates the to do list
 to_do_list = list()
 
+def sort(to_do_list):
+    to_do_list.sort()
+
 # Marks an item as completed
 def completed(input_item, to_do_list):
     # Runs list_to_check function
@@ -79,29 +82,35 @@ def main():
         Type "add" to add a new item to the to do list
         Type "delete" to delete a new item to the to do list
         Type "view" to view all items in the dictionary
-        Type "done" to mark an item as complete"""
+        Type "done" to mark an item as complete
+        Type "sort" to sort the list in alphabetical order"""
     print(instructions)
     print("")
     # Go on forever until physically stopped
     while True:
         # Allow the user to make a choice
-        choice = input("Type your preferred action (add, delete, view, done): ").casefold()
+        choice = input("Type your preferred action (add, delete, view, done, sort): ").casefold()
         # If a user selects view, they do not need to input a value
         if choice != "view":
-            # Ensures that the input is still one of the correct options
-            if choice == "add" or choice == "delete" or choice == "done":
-                # Allows the user to input a value to add, delete, or complete
-                requested_item = input("Please type out a to do list item: ").casefold()
-                # Run correct functon based on user input
-                if choice == "add":
-                    add(requested_item, to_do_list)
-                elif choice == "delete":
-                    delete(requested_item, to_do_list)
-                elif choice == "done":
-                    completed(requested_item, to_do_list)
-            # If the user does not input one of the correct options, display that
+            # Same with sort
+            if choice != "sort":
+                # Ensures that the input is still one of the correct options
+                if choice == "add" or choice == "delete" or choice == "done":
+                    # Allows the user to input a value to add, delete, or complete
+                    requested_item = input("Please type out a to do list item: ").casefold()
+                    # Run correct functon based on user input
+                    if choice == "add":
+                        add(requested_item, to_do_list)
+                    elif choice == "delete":
+                        delete(requested_item, to_do_list)
+                    elif choice == "done":
+                        completed(requested_item, to_do_list)
+                # If the user does not input one of the correct options, display that
+                else:
+                    print("Not a valid choice!")
             else:
-                print("Not a valid choice!")
+                sort(to_do_list)
+                view(to_do_list)
         # If choice IS view, run view function without entering this nested loop
         else:
             view(to_do_list)
